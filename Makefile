@@ -8,8 +8,7 @@ spark_home := $(addsuffix tools/spark, $(current_dir))
 # Configuration and start/stop commands #
 #########################################
 
-#download: download_hadoop download_spark download_hive
-download: download_hive
+download: download_hadoop download_spark download_hive
 
 download_hadoop:
 	mkdir -p ${current_dir}tools

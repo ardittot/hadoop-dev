@@ -24,10 +24,14 @@ git pull origin master
 # Setup hadoop
 make download
 make configure
+
+# Start hadoop and spark
 make start_hadoop
 make start_spark
+
 #Hive configuration requires Hadoop/HDFS running
 make configure_hive
 make start_hive_server
+
 #In another terminal start beeline client
 make start_hive_beeline_client

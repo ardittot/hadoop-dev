@@ -11,6 +11,9 @@ echo 'export JAVA_HOME="/opt/jdk"' >> ~/.bashrc
 echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 
+# Install git
+sudo apt-get install git
+
 # Pull source
 cd ~
 mkdir hdfs-spark-hive && cd hdfs-spark-hive

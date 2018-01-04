@@ -1,7 +1,7 @@
 # Install python & pip
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get python-pip python3-pip
+sudo apt-get install python-pip python3-pip
 
 # Install java
 sudo apt-get install openjdk-8-jdk openjdk-8-source

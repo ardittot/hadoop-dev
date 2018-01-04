@@ -11,6 +11,13 @@ echo 'export JAVA_HOME="/opt/jdk"' >> ~/.bashrc
 echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 
+# Pull source
+cd ~
+mkdir hdfs-spark-hive && cd hdfs-spark-hive
+git init
+git remote add origin https://github.com/ardittot/hadoop-dev.git
+git pull origin master
+
 # Setup hadoop
 make download
 make configure

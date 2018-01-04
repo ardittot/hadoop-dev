@@ -13,27 +13,27 @@ download: download_hadoop download_spark download_hive
 download_hadoop:
 	mkdir -p ${current_dir}tools
 	cd ${current_dir}tools; wget https://archive.apache.org/dist/hadoop/core/hadoop-2.7.3/hadoop-2.7.3.tar.gz && tar -xvf hadoop-2.7.3.tar.gz && rm -rf hadoop-2.7.3.tar.gz
-	ln -s tools/hadoop-2.7.3 tools/hadoop
+	ln -s ${current_dir}tools/hadoop-2.7.3 ${current_dir}tools/hadoop
 	
 download_spark:
 	mkdir -p ${current_dir}tools
 	#cd ${current_dir}tools; wget https://dl.dropboxusercontent.com/u/4882345/packages/spark-2.0.0-bin.tgz && tar -xvf spark-2.0.0-bin.tgz && rm -rf spark-2.0.0-bin.tgz
 	cd ${current_dir}tools; wget http://www-us.apache.org/dist/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz && tar -xvf spark-2.2.1-bin-hadoop2.7.tgz && rm -rf spark-2.2.1-bin-hadoop2.7.tgz
-	ln -s tools/spark-2.2.1-bin-hadoop2.7 tools/spark
+	ln -s ${current_dir}tools/spark-2.2.1-bin-hadoop2.7 ${current_dir}tools/spark
 	
 download_hive:
 	mkdir -p ${current_dir}tools
 	#cd ${current_dir}tools; wget http://www-us.apache.org/dist/hive/hive-2.1.0/apache-hive-2.1.0-bin.tar.gz && tar -xvf apache-hive-2.1.0-bin.tar.gz && rm -rf apache-hive-2.1.0-bin.tar.gz
 	cd ${current_dir}tools; wget http://archive.apache.org/dist/hive/hive-2.1.0/apache-hive-2.1.0-bin.tar.gz && tar -xvf apache-hive-2.1.0-bin.tar.gz && rm -rf apache-hive-2.1.0-bin.tar.gz
-	ln -s tools/apache-hive-2.1.0-bin tools/hive
+	ln -s ${current_dir}tools/apache-hive-2.1.0-bin ${current_dir}tools/hive
 	
 configure: configure_hadoop configure_spark
 
 configure_hadoop:
-	#Get public and private key
-	ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
 	#install Ubuntu dependencies
 	sudo apt-get install -y ssh rsync
+	#Get public and private key
+	ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
 	#Set JAVA_HOME explicitly
 	sed -i "s#.*export JAVA_HOME.*#export JAVA_HOME=${JAVA_HOME}#g" ${hadoop_home}/etc/hadoop/hadoop-env.sh 
 	#Set HADOOP_CONF_DIR explicitly
@@ -49,7 +49,7 @@ configure_hadoop:
 	#ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
 	cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
 	chmod 0600 ~/.ssh/authorized_keys
-	ssh-add
+	ssh-add -l
 
 start_hadoop:
 	${hadoop_home}/sbin/start-dfs.sh

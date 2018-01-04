@@ -1,8 +1,8 @@
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 current_dir := $(dir $(mkfile_path))
-hive_home := $(addsuffix tools/apache-hive-2.1.0-bin, $(current_dir))
-hadoop_home := $(addsuffix tools/hadoop-2.7.3, $(current_dir))
-spark_home := $(addsuffix tools/spark-2.2.1-bin-hadoop, $(current_dir))
+hive_home := $(addsuffix tools/hive, $(current_dir))
+hadoop_home := $(addsuffix tools/hadoop, $(current_dir))
+spark_home := $(addsuffix tools/spark, $(current_dir))
 
 #########################################
 # Configuration and start/stop commands #
@@ -14,17 +14,20 @@ download: download_hive
 download_hadoop:
 	mkdir -p ${current_dir}tools
 	cd ${current_dir}tools; wget https://archive.apache.org/dist/hadoop/core/hadoop-2.7.3/hadoop-2.7.3.tar.gz && tar -xvf hadoop-2.7.3.tar.gz && rm -rf hadoop-2.7.3.tar.gz
-
+	ln -s tools/hadoop-2.7.3 tools/hadoop
+	
 download_spark:
 	mkdir -p ${current_dir}tools
 	#cd ${current_dir}tools; wget https://dl.dropboxusercontent.com/u/4882345/packages/spark-2.0.0-bin.tgz && tar -xvf spark-2.0.0-bin.tgz && rm -rf spark-2.0.0-bin.tgz
-	cd ${current_dir}tools; wget http://www-us.apache.org/dist/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz && tar -xvf spark-2.2.1-bin-hadoop2.7.tgz && rm -rf spark-2.2.1-bin-hadoop.tgz
-
+	cd ${current_dir}tools; wget http://www-us.apache.org/dist/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz && tar -xvf spark-2.2.1-bin-hadoop2.7.tgz && rm -rf spark-2.2.1-bin-hadoop2.7.tgz
+	ln -s tools/spark-2.2.1-bin-hadoop2.7 tools/spark
+	
 download_hive:
 	mkdir -p ${current_dir}tools
 	#cd ${current_dir}tools; wget http://www-us.apache.org/dist/hive/hive-2.1.0/apache-hive-2.1.0-bin.tar.gz && tar -xvf apache-hive-2.1.0-bin.tar.gz && rm -rf apache-hive-2.1.0-bin.tar.gz
 	cd ${current_dir}tools; wget http://archive.apache.org/dist/hive/hive-2.1.0/apache-hive-2.1.0-bin.tar.gz && tar -xvf apache-hive-2.1.0-bin.tar.gz && rm -rf apache-hive-2.1.0-bin.tar.gz
-
+	ln -s tools/apache-hive-2.1.0-bin tools/hive
+	
 configure: configure_hadoop configure_spark
 
 configure_hadoop:
